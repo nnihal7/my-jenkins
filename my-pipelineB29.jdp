@@ -30,6 +30,14 @@ pipeline {
             echo 'Test is Success'
 	   }
         }
+	stage ('QUALITY-GATE') {
+	    steps {
+	        timeout(time: 5, unit: 'MINUTES') {
+		waitForQualityGate abortPipeline: true, credentialsId: 'sonar'
+		echo 'QUALITY-PASSED'
+		}
+            }
+	}
         stage ('DEPLOY STAGE') {
             steps {
                 echo 'Deploy Success'
