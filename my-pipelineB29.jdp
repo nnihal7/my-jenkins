@@ -27,7 +27,7 @@ pipeline {
 	    sh 'mvn sonar:sonar   -Dsonar.projectKey=project-b29   -Dsonar.projectName='project-b29'\\ '
 	    }
 	    }
-            echo 'Test Success'
+            echo 'Test is Success'
 	   }
         }
         stage ('DEPLOY STAGE') {
