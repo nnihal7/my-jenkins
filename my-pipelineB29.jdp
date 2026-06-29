@@ -1,4 +1,4 @@
-pipeline {
+pipeline {
     agent any
     environment {
         JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
@@ -7,41 +7,42 @@ pipeline {
     stages {
         stage ('PULL STAGE') {
             steps {
-	    https://github.com/nnihal7/my-jenkins.git
+            https://github.com/nnihal7/my-jenkins.git
                 echo 'Pull Success'
             }
         }
         stage ('BUILD STAGE') {
             steps {
-	      dir('backend') {
-	      sh 'java-version'
-	      sh 'mvn clean package -DskipTests'
-	      }
+              dir('backend') {
+              sh 'java-version'
+              sh 'mvn clean package -DskipTests'
+              }
               echo 'Build Success'
             }
         }
         stage ('TEST STAGE') {
             steps {
-	    withSonarQubeEnv('sonar') {
-	    dir('backend') {
-	    sh 'mvn sonar:sonar   -Dsonar.projectKey=project-b29   -Dsonar.projectName='project-b29'\\ '
-	    }
-	    }
-            echo 'Test is Success'
-	   }
-        }
-	stage ('QUALITY-GATE') {
-	    steps {
-	        timeout(time: 5, unit: 'MINUTES') {
-		waitForQualityGate abortPipeline: true, credentialsId: 'sonar'
-		echo 'QUALITY-PASSED'
-		}
+            withSonarQubeEnv('sonar') {
+            dir('backend') {
+            sh 'mvn sonar:sonar   -Dsonar.projectKey=project-b29   -Dsonar.projectName='project-b29'\\ '
             }
-	}
-        stage ('DEPLOY STAGE') {
+            }
+            echo 'Test is Success'
+           }
+        }
+        stage ('QUALITY-GATE') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true, credentialsId: 'sonar'
+                echo 'QUALITY-PASSED'
+                }
+            }
+        }
+        stage ('CONTINUOUS DELIVERY') {
             steps {
                 echo 'Deploy Success'
             }
         }
-    }
+i    }
+}
 }
