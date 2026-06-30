@@ -22,8 +22,8 @@ pipeline {
         }
         stage ('TEST STAGE') {
             steps {
+	    dir('backend') {
             withSonarQubeEnv('sonar') {
-            dir('backend') {
             sh '''mvn sonar:sonar   -Dsonar.projectKey=project-b29   -Dsonar.projectName='project-b29' '''
             }
             }
