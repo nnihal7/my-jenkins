@@ -14,7 +14,7 @@ pipeline {
         stage ('BUILD STAGE') {
             steps {
               dir('backend') {
-              sh 'java-version'
+              sh 'java -version'
               sh 'mvn clean package -DskipTests'
               }
               echo 'Build Success'
