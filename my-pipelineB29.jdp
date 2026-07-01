@@ -38,8 +38,7 @@ pipeline {
 		}
             }
 	}
-        stage ('CONTINUOUS DELIVERY
-') {
+        stage ('CONTINUOUS DELIVERY') {
             steps {
                 echo 'Deploy Success'
             }
